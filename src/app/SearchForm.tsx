@@ -39,7 +39,7 @@ export default function SearchForm() {
       <SearchInput label="Overload:" name="overload" value={values.overload} onChange={onChange}/>
       <SearchInput label="Corrode:" name="corrode" value={values.corrode} onChange={onChange}/>
       <SearchInput label="Blight:" name="blight" value={values.blight} onChange={onChange}/>
-      <Button type="submit" disabled={searched}>Submit</Button>
+      <Button type="submit" disabled={searched}>Search</Button>
     </Form>
   )
 }
