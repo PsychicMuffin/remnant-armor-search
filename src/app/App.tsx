@@ -9,10 +9,10 @@ export default function App() {
     <>
       <Header/>
       <Row className="m-3">
-        <Col>
+        <Col md="auto">
           <SearchForm/>
         </Col>
-        <Col>
+        <Col md="auto">
           <SearchResults/>
         </Col>
       </Row>
