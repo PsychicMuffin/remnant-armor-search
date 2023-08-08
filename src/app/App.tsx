@@ -11,11 +11,11 @@ export default function App() {
   return (
     <>
       <Header/>
-      <Row className="m-3">
+      <Row className="m-3 me-0">
         <Col sm="auto">
           <SearchForm setSearchResults={setSearchResults}/>
         </Col>
-        <Col lg="6" xl="7" xxl="8">
+        <Col lg="auto" xl="7" xxl="8">
           <SearchResults searchResults={searchResults}/>
         </Col>
       </Row>

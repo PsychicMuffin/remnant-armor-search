@@ -65,6 +65,7 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
 
   function passesChecks(sums: ArmorPiece): boolean {
     const weightPasses = searchValues.maxWeight <= 0 || sums.weight <= searchValues.maxWeight;
+    //TODO: use new SearchCriteriaNames class
     return weightPasses && passesCheck("armor") && passesCheck("bleed") && passesCheck("burn") &&
       passesCheck("overload") && passesCheck("blight") && passesCheck("corrode");
 
