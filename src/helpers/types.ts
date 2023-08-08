@@ -1,3 +1,5 @@
+import React from "react";
+
 export type ArmorSet = {
   name: string,
   chest?: ArmorPiece,
@@ -18,7 +20,8 @@ export type ArmorPiece = {
 }
 
 export type SearchValues = {
-  maxWeight: number,
+  maxWeight: number | null,
+  minScore: number | null,
   armor: SearchValue,
   bleed: SearchValue,
   burn: SearchValue,
@@ -26,7 +29,7 @@ export type SearchValues = {
   blight: SearchValue,
   corrode: SearchValue,
 }
-export type SearchCriteriaName = keyof Omit<SearchValues, "maxWeight">;
+export type SearchCriteriaName = keyof Omit<SearchValues, "maxWeight" | "minScore">;
 export const SearchCriteriaNames: SearchCriteriaName[] = ["armor", "bleed", "burn", "overload", "blight", "corrode"];
 
 export type SearchValue = {
@@ -45,4 +48,9 @@ export type SearchResult = ArmorPiece & {
   glove: NamedArmorPiece,
   helm: NamedArmorPiece,
   boot: NamedArmorPiece
+}
+
+export type StateObject<T> = {
+  value: T,
+  setter: React.Dispatch<React.SetStateAction<T>>
 }

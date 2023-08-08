@@ -2,9 +2,9 @@ import {Button, Col, Form, Row, Tab, Tabs} from "react-bootstrap";
 import React, {FormEvent, useEffect, useState} from "react";
 import SearchInput from "./SearchInput";
 import ArmorFilter from "./ArmorFilter";
-import {BaseArmorSets} from "../search/data";
-import {SearchCriteriaName, SearchResult, SearchValue} from "../search/types";
-import {searchArmorSets} from "../search/search";
+import {BaseArmorSets} from "../helpers/data";
+import {SearchCriteriaName, SearchResult, SearchValue, SearchValues, StateObject} from "../helpers/types";
+import {searchArmorSets} from "../helpers/search";
 
 export default function SearchForm(props: {
   setSearchResults: React.Dispatch<React.SetStateAction<SearchResult[]>>
@@ -14,8 +14,9 @@ export default function SearchForm(props: {
   const [armorSets, setArmorSets] = useState<boolean[]>(initialArmorSets);
 
   const [searched, setSearched] = useState(false);
-  const [searchValues, setSearchValues] = useState({
-    maxWeight: 50,
+  const [searchValues, setSearchValues] = useState<SearchValues>({
+    maxWeight: null,
+    minScore: null,
     armor: {weight: null, min: null, max: null},
     bleed: {weight: null, min: null, max: null},
     burn: {weight: null, min: null, max: null},
@@ -44,30 +45,22 @@ export default function SearchForm(props: {
     props.setSearchResults(searchArmorSets(armorSets, searchValues));
   }
 
+  const searchValuesState = {value: searchValues, setter: setSearchValues};
   return (
     <Form onSubmit={search}>
-      <Form.Group as={Row}>
-        <Form.Label column md="auto">Max Weight:</Form.Label>
-        <Col md="auto">
-          <Form.Control
-            type="number"
-            min="0"
-            max="1000"
-            value={searchValues.maxWeight}
-            onChange={(e) => {
-              setSearchValues(prevState => ({...prevState, maxWeight: Number(e.target.value)}))
-            }}/>
-        </Col>
+      <Form.Group as={Row} xs="auto">
+        <NotableValue label="Max Weight:" name="maxWeight" searchValues={searchValuesState}/>
+        <NotableValue label="Min Score:" name="minScore" searchValues={searchValuesState}/>
       </Form.Group>
-      <Tabs defaultActiveKey="search" className="my-3" justify>
+      <Tabs defaultActiveKey="search" className="my-2" justify>
         <Tab eventKey="search" title="Search Weights">
           <SearchInput label="Armor:" name="armor" values={searchValues} updateValue={updateValue}/>
           <SearchInput label="Bleed:" name="bleed" values={searchValues} updateValue={updateValue}/>
           <SearchInput label="Burn:" name="burn" values={searchValues} updateValue={updateValue}/>
           <SearchInput label="Overload:" name="overload" values={searchValues} updateValue={updateValue}/>
-          <SearchInput label="Corrode:" name="corrode" values={searchValues} updateValue={updateValue}/>
           <SearchInput label="Blight:" name="blight" values={searchValues} updateValue={updateValue}/>
-          <Row className="my-3 align-items-center">
+          <SearchInput label="Corrode:" name="corrode" values={searchValues} updateValue={updateValue}/>
+          <Row className="p-2 pe-1 align-items-center">
             <Button type="submit" disabled={searched}>Search</Button>
           </Row>
         </Tab>
@@ -76,5 +69,30 @@ export default function SearchForm(props: {
         </Tab>
       </Tabs>
     </Form>
-  )
+  );
+}
+
+function NotableValue(props: {
+  label: string,
+  name: keyof Pick<SearchValues, "maxWeight" | "minScore">
+  searchValues: StateObject<SearchValues>
+}) {
+  return (
+    <Row className="py-1">
+      <Form.Label column xs="6" className="pe-1">{props.label}</Form.Label>
+      <Col xs="6" className="px-1">
+        <Form.Control
+          type="number"
+          min="-1000"
+          max="1000"
+          value={props.searchValues.value[props.name] ?? ''}
+          onChange={(e) => {
+            props.searchValues.setter(prevState => ({
+              ...prevState,
+              [props.name]: e.target.value ? Number(e.target.value) : null
+            }))
+          }}/>
+      </Col>
+    </Row>
+  );
 }

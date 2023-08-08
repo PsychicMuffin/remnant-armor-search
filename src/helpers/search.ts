@@ -1,4 +1,12 @@
-import {ArmorPiece, ArmorSlot, NamedArmorPiece, SearchCriteriaName, SearchResult, SearchValues} from "./types";
+import {
+  ArmorPiece,
+  ArmorSlot,
+  NamedArmorPiece,
+  SearchCriteriaName,
+  SearchCriteriaNames,
+  SearchResult,
+  SearchValues
+} from "./types";
 import {BaseArmorSets} from "./data";
 import {isPresent} from "ts-is-present";
 
@@ -23,14 +31,16 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
           const sums = getArmorSum([chest, glove, helm, boot]);
           if (passesChecks(sums)) {
             const score = calcScore(sums);
-            searchResults.push({
-              ...sums,
-              score: calcScore(sums),
-              chest,
-              glove,
-              helm,
-              boot,
-            });
+            if (searchValues.minScore == null || score > searchValues.minScore) {
+              searchResults.push({
+                ...sums,
+                score: calcScore(sums),
+                chest,
+                glove,
+                helm,
+                boot,
+              });
+            }
           }
         });
       });
@@ -51,7 +61,6 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   }
 
   function getArmorSum(pieces: ArmorPiece[]): ArmorPiece {
-    //TODO: change to looping over item property names?
     return pieces.reduce((a, b) => ({
       weight: a.weight + b.weight,
       armor: a.armor + b.armor,
@@ -64,21 +73,21 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   }
 
   function passesChecks(sums: ArmorPiece): boolean {
-    const weightPasses = searchValues.maxWeight <= 0 || sums.weight <= searchValues.maxWeight;
-    //TODO: use new SearchCriteriaNames class
-    return weightPasses && passesCheck("armor") && passesCheck("bleed") && passesCheck("burn") &&
-      passesCheck("overload") && passesCheck("blight") && passesCheck("corrode");
+    const weightPasses = searchValues.maxWeight == null || sums.weight <= searchValues.maxWeight;
+    return weightPasses && SearchCriteriaNames.map(passesCheck).every(Boolean);
 
     function passesCheck(name: SearchCriteriaName): boolean {
       const value = sums[name];
       const restriction = searchValues[name];
-      const passesMin = !restriction.min || value >= restriction.min;
-      const passesMax = !restriction.max || value <= restriction.max;
+      const passesMin = restriction.min == null || value >= restriction.min;
+      const passesMax = restriction.max == null || value <= restriction.max;
       return passesMin && passesMax;
     }
   }
 
   function calcScore(sums: ArmorPiece): number {
-    return 100;//TODO
+    return SearchCriteriaNames
+      .map(name => sums[name] * (searchValues[name].weight ?? 0))
+      .reduce((a, b) => a + b);
   }
 }

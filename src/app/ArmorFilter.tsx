@@ -1,4 +1,4 @@
-import {BaseArmorSets} from "../search/data";
+import {BaseArmorSets} from "../helpers/data";
 import React, {useEffect} from "react";
 import {Form} from "react-bootstrap";
 

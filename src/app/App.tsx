@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
 import Header from "./Header";
-import {SearchResult} from "../search/types";
+import {SearchResult} from "../helpers/types";
 
 export default function App() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -12,7 +12,7 @@ export default function App() {
     <>
       <Header/>
       <Row className="m-3 me-0">
-        <Col sm="auto">
+        <Col xs="auto">
           <SearchForm setSearchResults={setSearchResults}/>
         </Col>
         <Col lg="auto" xl="7" xxl="8">

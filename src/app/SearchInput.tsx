@@ -1,6 +1,6 @@
 import {Col, Form, Row} from "react-bootstrap";
 import React from "react";
-import {SearchCriteriaName, SearchValue, SearchValues} from "../search/types";
+import {SearchCriteriaName, SearchValue, SearchValues} from "../helpers/types";
 
 export default function SearchInput(props: {
   label: string,
@@ -9,8 +9,8 @@ export default function SearchInput(props: {
   updateValue: (name: SearchCriteriaName, updates: Partial<SearchValue>) => void
 }) {
   return (
-    <Form.Group as={Row} className="mb-2">
-      <Form.Label column sm="3">{props.label}</Form.Label>
+    <Form.Group as={Row} xs="auto" className="mb-2">
+      <Form.Label column xs="3">{props.label}</Form.Label>
       <SearchInputColumn name={props.name} subName="weight" values={props.values} updateValue={props.updateValue}/>
       <SearchInputColumn name={props.name} subName="min" values={props.values} updateValue={props.updateValue}/>
       <SearchInputColumn name={props.name} subName="max" values={props.values} updateValue={props.updateValue}/>
@@ -25,7 +25,7 @@ function SearchInputColumn(props: {
   updateValue: (name: SearchCriteriaName, updates: Partial<SearchValue>) => void
 }) {
   return (
-    <Col sm="3" className="px-1">
+    <Col xs="3" className="px-1">
       <Form.Control
         className="text-center"
         type="number"
