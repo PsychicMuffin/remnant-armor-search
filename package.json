@@ -2,11 +2,14 @@
   "name": "remnant-armor-search",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://psychicmuffin.github.io/remnant-armor-search",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "bootstrap": "^5.3.1",
@@ -27,7 +30,8 @@
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0"
+    "@types/react-dom": "^18.0.0",
+    "gh-pages": "^5.0.0"
   },
   "eslintConfig": {
     "extends": [
