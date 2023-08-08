@@ -11,7 +11,7 @@ export default function App() {
   return (
     <>
       <Header/>
-      <Row className="m-3 me-0">
+      <Row className="py-2 ps-3 pe-0 me-0">
         <Col xs="auto">
           <SearchForm setSearchResults={setSearchResults}/>
         </Col>

@@ -54,3 +54,7 @@ export type StateObject<T> = {
   value: T,
   setter: React.Dispatch<React.SetStateAction<T>>
 }
+
+export function getState<T>(value: T, setter: React.Dispatch<React.SetStateAction<T>>) {
+  return {value, setter};
+}

@@ -3,7 +3,7 @@ import React, {FormEvent, useEffect, useState} from "react";
 import SearchInput from "./SearchInput";
 import ArmorFilter from "./ArmorFilter";
 import {BaseArmorSets} from "../helpers/data";
-import {SearchCriteriaName, SearchResult, SearchValue, SearchValues, StateObject} from "../helpers/types";
+import {getState, SearchCriteriaName, SearchResult, SearchValue, SearchValues, StateObject} from "../helpers/types";
 import {searchArmorSets} from "../helpers/search";
 
 export default function SearchForm(props: {
@@ -45,12 +45,12 @@ export default function SearchForm(props: {
     props.setSearchResults(searchArmorSets(armorSets, searchValues));
   }
 
-  const searchValuesState = {value: searchValues, setter: setSearchValues};
+  const searchValuesState = getState(searchValues, setSearchValues);
   return (
     <Form onSubmit={search}>
       <Form.Group as={Row} xs="auto">
-        <NotableValue label="Max Weight:" name="maxWeight" searchValues={searchValuesState}/>
-        <NotableValue label="Min Score:" name="minScore" searchValues={searchValuesState}/>
+        <NotableValue label="Max Weight:" name="maxWeight" state={searchValuesState}/>
+        <NotableValue label="Min Score:" name="minScore" state={searchValuesState}/>
       </Form.Group>
       <Tabs defaultActiveKey="search" className="my-2" justify>
         <Tab eventKey="search" title="Search Weights">
@@ -65,7 +65,7 @@ export default function SearchForm(props: {
           </Row>
         </Tab>
         <Tab eventKey="filter" title="Armor Filter">
-          <ArmorFilter armorSets={armorSets} setArmorSets={setArmorSets}/>
+          <ArmorFilter state={getState(armorSets, setArmorSets)}/>
         </Tab>
       </Tabs>
     </Form>
@@ -75,7 +75,7 @@ export default function SearchForm(props: {
 function NotableValue(props: {
   label: string,
   name: keyof Pick<SearchValues, "maxWeight" | "minScore">
-  searchValues: StateObject<SearchValues>
+  state: StateObject<SearchValues>
 }) {
   return (
     <Row className="py-1">
@@ -85,9 +85,9 @@ function NotableValue(props: {
           type="number"
           min="-1000"
           max="1000"
-          value={props.searchValues.value[props.name] ?? ''}
+          value={props.state.value[props.name] ?? ''}
           onChange={(e) => {
-            props.searchValues.setter(prevState => ({
+            props.state.setter(prevState => ({
               ...prevState,
               [props.name]: e.target.value ? Number(e.target.value) : null
             }))
