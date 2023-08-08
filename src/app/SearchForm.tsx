@@ -3,7 +3,7 @@ import React, {FormEvent, useEffect, useState} from "react";
 import SearchInput from "./SearchInput";
 import ArmorFilter from "./ArmorFilter";
 import {BaseArmorSets} from "../helpers/data";
-import {getState, SearchCriteriaName, SearchResult, SearchValue, SearchValues, StateObject} from "../helpers/types";
+import {getState, SearchResult, SearchValues, StateObject} from "../helpers/types";
 import {searchArmorSets} from "../helpers/search";
 
 export default function SearchForm(props: {
@@ -29,16 +29,6 @@ export default function SearchForm(props: {
     setSearched(false);
   }, [searchValues, armorSets]);
 
-  function updateValue(name: SearchCriteriaName, updates: Partial<SearchValue>) {
-    setSearchValues(prevState => ({
-      ...prevState,
-      [name]: {
-        ...prevState[name],
-        ...updates
-      }
-    }));
-  }
-
   function search(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSearched(true);
@@ -54,12 +44,12 @@ export default function SearchForm(props: {
       </Form.Group>
       <Tabs defaultActiveKey="search" className="my-2" justify>
         <Tab eventKey="search" title="Search Weights">
-          <SearchInput label="Armor:" name="armor" values={searchValues} updateValue={updateValue}/>
-          <SearchInput label="Bleed:" name="bleed" values={searchValues} updateValue={updateValue}/>
-          <SearchInput label="Burn:" name="burn" values={searchValues} updateValue={updateValue}/>
-          <SearchInput label="Overload:" name="overload" values={searchValues} updateValue={updateValue}/>
-          <SearchInput label="Blight:" name="blight" values={searchValues} updateValue={updateValue}/>
-          <SearchInput label="Corrode:" name="corrode" values={searchValues} updateValue={updateValue}/>
+          <SearchInput label="Armor:" name="armor" state={searchValuesState}/>
+          <SearchInput label="Bleed:" name="bleed" state={searchValuesState}/>
+          <SearchInput label="Burn:" name="burn" state={searchValuesState}/>
+          <SearchInput label="Overload:" name="overload" state={searchValuesState}/>
+          <SearchInput label="Blight:" name="blight" state={searchValuesState}/>
+          <SearchInput label="Corrode:" name="corrode" state={searchValuesState}/>
           <Row className="p-2 pe-1 align-items-center">
             <Button type="submit" disabled={searched}>Search</Button>
           </Row>
