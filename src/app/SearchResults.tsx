@@ -1,5 +1,5 @@
-import {NamedArmorPiece, SearchResult} from "../helpers/types";
 import {Card, Col, Row} from "react-bootstrap";
+import {NamedArmorPiece, SearchResult} from "../helpers/types";
 
 export default function SearchResults(props: {
   searchResults: SearchResult[]
@@ -13,10 +13,10 @@ export default function SearchResults(props: {
               Score: {result.score.toFixed(2)}
             </Card.Header>
             <Card.Body className="py-1 px-2">
-              <SlotResult label="Chest: " piece={result.chest}/>
-              <SlotResult label="Gloves: " piece={result.glove}/>
               <SlotResult label="Helmet: " piece={result.helm}/>
+              <SlotResult label="Chest: " piece={result.chest}/>
               <SlotResult label="Boots: " piece={result.boot}/>
+              <SlotResult label="Gloves: " piece={result.glove}/>
             </Card.Body>
             <Card.Footer className="py-1 px-0">
               <Row xs="auto" className="justify-content-center mb-1">
@@ -24,15 +24,15 @@ export default function SearchResults(props: {
                 <HighlightedResult label="Weight" result={result.weight}/>
               </Row>
               <Row xs="auto" className="justify-content-center mx-1">
-                <ResistResult src="img/bleed.png" result={result.bleed}/>
-                <ResistResult src="img/burn.png" result={result.burn}/>
-                <ResistResult src="img/overload.png" result={result.overload}/>
-                <ResistResult src="img/blight.png" result={result.blight}/>
-                <ResistResult src="img/corrode.png" result={result.corrode}/>
+                <ResistResult src="/img/bleed.png" result={result.bleed}/>
+                <ResistResult src="/img/burn.png" result={result.burn}/>
+                <ResistResult src="/img/overload.png" result={result.overload}/>
+                <ResistResult src="/img/corrode.png" result={result.corrode}/>
+                <ResistResult src="/img/blight.png" result={result.blight}/>
               </Row>
             </Card.Footer>
           </Card>
-        </Col>
+        </Col>,
       )}
     </Row>
   );
@@ -44,7 +44,7 @@ function SlotResult(props: {
 }) {
   return (
     <Card.Text className="my-1"><strong>{props.label}</strong>{props.piece.name}</Card.Text>
-  )
+  );
 }
 
 function HighlightedResult(props: {
@@ -67,7 +67,7 @@ function ResistResult(props: {
 }) {
   return (
     <Card className="border-0 bg-transparent p-0">
-      <Card.Img variant="top" src={props.src}/>
+      <Card.Img variant="top" src={process.env.PUBLIC_URL + props.src}/>
       <Card.Body className="p-0">
         <Card.Text className="text-center py-0 px-1 lh-sm">{props.result}</Card.Text>
       </Card.Body>

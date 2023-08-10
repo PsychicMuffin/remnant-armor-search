@@ -5,4 +5,5 @@
 /httpRequests/
 
 # Everything else (for now)
-*
+/*
+!/codeStyles

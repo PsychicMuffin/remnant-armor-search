@@ -1,10 +1,10 @@
-import {Container, Navbar} from "react-bootstrap";
 import {useEffect, useState} from "react";
+import {Container, Navbar} from "react-bootstrap";
 import Switch from "react-switch";
 
 enum Theme {
   Light = "light",
-  Dark = "dark"
+  Dark  = "dark"
 }
 
 function getTheme(isDark: boolean) {
@@ -16,20 +16,21 @@ export default function Header() {
   const [bgColor, setBgColor] = useState("#fff");
 
   useEffect(() => {
-    const storedThemeString = localStorage.getItem('theme')
+    const storedThemeString = localStorage.getItem("theme");
     if (storedThemeString) {
       applyTheme(storedThemeString as Theme);
     } else {
-      const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       applyTheme(getTheme(preferDark));
     }
-  }, [])
+  }, []);
 
   function applyTheme(theme: Theme) {
     setTheme(theme);
-    document.documentElement.setAttribute('data-bs-theme', theme);
-    localStorage.setItem('theme', theme);
-    const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--bs-primary-bg-subtle');
+    document.documentElement.setAttribute("data-bs-theme", theme);
+    localStorage.setItem("theme", theme);
+    const bgColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--bs-primary-bg-subtle");
     setBgColor(bgColor);
   }
 
@@ -60,10 +61,10 @@ export default function Header() {
               justifyContent: "center",
               alignItems: "flex-end",
               height: "100%",
-              fontSize: 20
+              fontSize: 20,
             }}>🔆</div>}
         />
       </Container>
     </Navbar>
-  )
+  );
 }

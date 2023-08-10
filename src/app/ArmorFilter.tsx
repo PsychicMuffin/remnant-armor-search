@@ -1,13 +1,13 @@
-import {BaseArmorSets} from "../helpers/data";
 import React, {useEffect} from "react";
 import {Form} from "react-bootstrap";
+import {BaseArmorSets} from "../helpers/data";
 import {StateObject} from "../helpers/types";
 
 export default function ArmorFilter(props: {
   state: StateObject<boolean[]>
 }) {
   useEffect(() => {
-    localStorage.setItem("armorSets", JSON.stringify(props.state.value))
+    localStorage.setItem("armorSets", JSON.stringify(props.state.value));
   }, [props.state.value]);
 
   function updateArmorSet(index: number, include: boolean) {
@@ -29,7 +29,7 @@ export default function ArmorFilter(props: {
           label={armorSet.name}
           checked={props.state.value[i]}
           onChange={(e) => updateArmorSet(i, e.target.checked)}
-        />
+        />,
       )}
     </div>
   );

@@ -1,3 +1,5 @@
+import {isPresent} from "ts-is-present";
+import {BaseArmorSets} from "./data";
 import {
   ArmorPiece,
   ArmorSlot,
@@ -5,10 +7,8 @@ import {
   SearchCriteriaName,
   SearchCriteriaNames,
   SearchResult,
-  SearchValues
+  SearchValues,
 } from "./types";
-import {BaseArmorSets} from "./data";
-import {isPresent} from "ts-is-present";
 
 export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValues) {
   const activeSets = setBooleans
@@ -50,26 +50,28 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   return searchResults.sort((a, b) => b.score - a.score);
 
   function getSlotSet(slot: ArmorSlot): NamedArmorPiece[] {
-    const slotSet: NamedArmorPiece[] = []
+    const slotSet: NamedArmorPiece[] = [];
     activeSets.forEach(set => {
       const piece = set[slot];
       if (piece) {
         slotSet.push({name: set.name, ...piece});
       }
-    })
+    });
     return slotSet;
   }
 
   function getArmorSum(pieces: ArmorPiece[]): ArmorPiece {
-    return pieces.reduce((a, b) => ({
-      weight: a.weight + b.weight,
-      armor: a.armor + b.armor,
-      bleed: a.bleed + b.bleed,
-      burn: a.burn + b.burn,
-      overload: a.overload + b.overload,
-      blight: a.blight + b.blight,
-      corrode: a.corrode + b.corrode
-    }));
+    return pieces.reduce((a, b) => (
+      {
+        weight: a.weight + b.weight,
+        armor: a.armor + b.armor,
+        bleed: a.bleed + b.bleed,
+        burn: a.burn + b.burn,
+        overload: a.overload + b.overload,
+        blight: a.blight + b.blight,
+        corrode: a.corrode + b.corrode,
+      }
+    ));
   }
 
   function passesChecks(sums: ArmorPiece): boolean {
@@ -87,7 +89,9 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
 
   function calcScore(sums: ArmorPiece): number {
     return SearchCriteriaNames
-      .map(name => sums[name] * (searchValues[name].weight ?? 0))
+      .map(name => sums[name] * (
+        searchValues[name].weight ?? 0
+      ))
       .reduce((a, b) => a + b);
   }
 }

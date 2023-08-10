@@ -30,7 +30,14 @@ export type SearchValues = {
   corrode: SearchValue,
 }
 export type SearchCriteriaName = keyof Omit<SearchValues, "maxWeight" | "minScore">;
-export const SearchCriteriaNames: SearchCriteriaName[] = ["armor", "bleed", "burn", "overload", "blight", "corrode"];
+export const SearchCriteriaNames: SearchCriteriaName[] = [
+  "armor",
+  "bleed",
+  "burn",
+  "overload",
+  "blight",
+  "corrode",
+];
 
 export type SearchValue = {
   weight: number | null,

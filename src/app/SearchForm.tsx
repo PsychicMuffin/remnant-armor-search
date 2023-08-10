@@ -1,18 +1,22 @@
-import {Button, Col, Form, Row, Tab, Tabs} from "react-bootstrap";
 import React, {FormEvent, useEffect, useState} from "react";
-import SearchInput from "./SearchInput";
-import ArmorFilter from "./ArmorFilter";
+import {Button, Col, Form, Row, Tab, Tabs} from "react-bootstrap";
 import {BaseArmorSets} from "../helpers/data";
-import {getState, SearchResult, SearchValues, StateObject} from "../helpers/types";
 import {searchArmorSets} from "../helpers/search";
+import {getState, SearchResult, SearchValues, StateObject} from "../helpers/types";
+import ArmorFilter from "./ArmorFilter";
+import SearchInput from "./SearchInput";
 
 export default function SearchForm(props: {
   setSearchResults: React.Dispatch<React.SetStateAction<SearchResult[]>>
 }) {
-  const storedArmorSets = localStorage.getItem("armorSets");
-  const initialArmorSets = storedArmorSets ? JSON.parse(storedArmorSets) : BaseArmorSets.map(_ => true);
-  const [armorSets, setArmorSets] = useState<boolean[]>(initialArmorSets);
+  const initialArmorSets = BaseArmorSets.map(_ => true);
+  const storedArmorSetsString = localStorage.getItem("armorSets");
+  if (storedArmorSetsString) {
+    const storedArmorSets: boolean[] = JSON.parse(storedArmorSetsString);
+    storedArmorSets.forEach((enabled, i) => initialArmorSets[i] = enabled);
+  }
 
+  const [armorSets, setArmorSets] = useState<boolean[]>(initialArmorSets);
   const [searched, setSearched] = useState(false);
   const [searchValues, setSearchValues] = useState<SearchValues>({
     maxWeight: null,
@@ -22,7 +26,7 @@ export default function SearchForm(props: {
     burn: {weight: null, min: null, max: null},
     overload: {weight: null, min: null, max: null},
     corrode: {weight: null, min: null, max: null},
-    blight: {weight: null, min: null, max: null}
+    blight: {weight: null, min: null, max: null},
   });
 
   useEffect(() => {
@@ -48,8 +52,8 @@ export default function SearchForm(props: {
           <SearchInput label="Bleed:" name="bleed" state={searchValuesState}/>
           <SearchInput label="Burn:" name="burn" state={searchValuesState}/>
           <SearchInput label="Overload:" name="overload" state={searchValuesState}/>
-          <SearchInput label="Blight:" name="blight" state={searchValuesState}/>
           <SearchInput label="Corrode:" name="corrode" state={searchValuesState}/>
+          <SearchInput label="Blight:" name="blight" state={searchValuesState}/>
           <Row className="p-2 pe-1 align-items-center">
             <Button type="submit" disabled={searched}>Search</Button>
           </Row>
@@ -75,12 +79,14 @@ function NotableValue(props: {
           type="number"
           min="-1000"
           max="1000"
-          value={props.state.value[props.name] ?? ''}
+          value={props.state.value[props.name] ?? ""}
           onChange={(e) => {
-            props.state.setter(prevState => ({
-              ...prevState,
-              [props.name]: e.target.value ? Number(e.target.value) : null
-            }))
+            props.state.setter(prevState => (
+              {
+                ...prevState,
+                [props.name]: e.target.value ? Number(e.target.value) : null,
+              }
+            ));
           }}/>
       </Col>
     </Row>

@@ -1,5 +1,5 @@
-import {Col, Form, Row} from "react-bootstrap";
 import React from "react";
+import {Col, Form, Row} from "react-bootstrap";
 import {SearchCriteriaName, SearchValue, SearchValues, StateObject} from "../helpers/types";
 
 export default function SearchInput(props: {
@@ -11,13 +11,15 @@ export default function SearchInput(props: {
   const searchValue = searchValues[props.name];
 
   function updateValue(subName: keyof SearchValue, value: string) {
-    setSearchValues(prevState => ({
-      ...prevState,
-      [props.name]: {
-        ...prevState[props.name],
-        [subName]: value ? Number(value) : null
+    setSearchValues(prevState => (
+      {
+        ...prevState,
+        [props.name]: {
+          ...prevState[props.name],
+          [subName]: value ? Number(value) : null,
+        },
       }
-    }));
+    ));
   }
 
   return (
@@ -43,7 +45,7 @@ function SearchInputColumn(props: {
         min="-1000"
         max="1000"
         placeholder={props.subName}
-        value={props.value[props.subName] ?? ''}
+        value={props.value[props.subName] ?? ""}
         onChange={(e) => props.updateValue(props.subName, e.target.value)}/>
     </Col>
   );

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import {Col, Row} from "react-bootstrap";
+import {SearchResult} from "../helpers/types";
+import Header from "./Header";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
-import Header from "./Header";
-import {SearchResult} from "../helpers/types";
 
 export default function App() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
