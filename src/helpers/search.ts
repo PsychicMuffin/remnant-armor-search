@@ -10,6 +10,9 @@ import {
   SearchValues,
 } from "./types";
 
+const MAX_RESULTS = 100;
+const MAX_SIZE = 10000;
+
 export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValues) {
   const activeSets = setBooleans
     .map((active, i) => active ? BaseArmorSets[i] : null)
@@ -40,6 +43,9 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
                 helm,
                 boot,
               });
+              if (searchResults.length >= MAX_SIZE) {
+                truncateResults(searchResults);
+              }
             }
           }
         });
@@ -47,7 +53,8 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
     });
   });
 
-  return searchResults.sort((a, b) => b.score - a.score);
+  truncateResults(searchResults);
+  return searchResults;
 
   function getSlotSet(slot: ArmorSlot): NamedArmorPiece[] {
     const slotSet: NamedArmorPiece[] = [];
@@ -94,4 +101,9 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
       ))
       .reduce((a, b) => a + b);
   }
+}
+
+function truncateResults(results: SearchResult[]) {
+  results.sort((a, b) => b.score - a.score);
+  results.length = MAX_RESULTS;
 }
