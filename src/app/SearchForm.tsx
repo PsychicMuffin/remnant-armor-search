@@ -78,6 +78,7 @@ function NotableValue(props: {
         <Form.Control
           className="text-center"
           type="text"
+          inputMode="decimal"
           htmlSize={4}
           value={props.state.value[props.name] ?? ""}
           onChange={(e) => {

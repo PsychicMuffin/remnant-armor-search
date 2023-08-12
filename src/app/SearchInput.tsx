@@ -44,8 +44,8 @@ function SearchInputColumn(props: {
       <Form.Control
         className="text-center"
         type="text"
-        htmlSize={4}
         inputMode="decimal"
+        htmlSize={4}
         placeholder={props.subName}
         value={props.value[props.subName] ?? ""}
         onChange={(e) => props.updateValue(props.subName, e.target.value)}/>
