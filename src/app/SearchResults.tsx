@@ -19,7 +19,7 @@ export default function SearchResults(props: {
               <SlotResult label="Gloves: " piece={result.glove}/>
             </Card.Body>
             <Card.Footer className="py-1 px-0">
-              <Row xs="auto" className="justify-content-center mb-1">
+              <Row xs="auto" className="justify-content-center mx-0 pb-1">
                 <HighlightedResult label="Armor" result={result.armor}/>
                 <HighlightedResult label="Weight" result={result.weight}/>
               </Row>

@@ -46,7 +46,7 @@ export default function SearchForm(props: {
         <NotableValue label="Max Weight:" name="maxWeight" state={searchValuesState}/>
         <NotableValue label="Min Score:" name="minScore" state={searchValuesState}/>
       </Form.Group>
-      <Tabs defaultActiveKey="search" className="my-2" justify>
+      <Tabs defaultActiveKey="search" className="pt-1 mb-2" justify>
         <Tab eventKey="search" title="Search Weights">
           <SearchInput label="Armor:" name="armor" state={searchValuesState}/>
           <SearchInput label="Bleed:" name="bleed" state={searchValuesState}/>
@@ -72,21 +72,23 @@ function NotableValue(props: {
   state: StateObject<SearchValues>
 }) {
   return (
-    <Row className="py-1">
-      <Form.Label column xs="6" className="pe-1">{props.label}</Form.Label>
-      <Col xs="6" className="px-1">
+    <Row className="py-2">
+      <Form.Label column={true} className="pe-1">{props.label}</Form.Label>
+      <Col className="px-1">
         <Form.Control
-          type="number"
-          min="-1000"
-          max="1000"
+          className="text-center"
+          type="text"
+          htmlSize={4}
           value={props.state.value[props.name] ?? ""}
           onChange={(e) => {
-            props.state.setter(prevState => (
-              {
-                ...prevState,
-                [props.name]: e.target.value ? Number(e.target.value) : null,
-              }
-            ));
+            if (Number.isFinite(Number(e.target.value))) {
+              props.state.setter(prevState => (
+                {
+                  ...prevState,
+                  [props.name]: e.target.value ? e.target.value : null,
+                }
+              ));
+            }
           }}/>
       </Col>
     </Row>

@@ -34,7 +34,7 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
           const sums = getArmorSum([chest, glove, helm, boot]);
           if (passesChecks(sums)) {
             const score = calcScore(sums);
-            if (searchValues.minScore == null || score > searchValues.minScore) {
+            if (searchValues.minScore == null || score >= Number(searchValues.minScore)) {
               searchResults.push({
                 ...sums,
                 score: calcScore(sums),
@@ -82,14 +82,15 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   }
 
   function passesChecks(sums: ArmorPiece): boolean {
-    const weightPasses = searchValues.maxWeight == null || sums.weight <= searchValues.maxWeight;
+    const weightPasses = searchValues.maxWeight == null
+      || sums.weight <= Number(searchValues.maxWeight);
     return weightPasses && SearchCriteriaNames.map(passesCheck).every(Boolean);
 
     function passesCheck(name: SearchCriteriaName): boolean {
       const value = sums[name];
       const restriction = searchValues[name];
-      const passesMin = restriction.min == null || value >= restriction.min;
-      const passesMax = restriction.max == null || value <= restriction.max;
+      const passesMin = restriction.min == null || value >= Number(restriction.min);
+      const passesMax = restriction.max == null || value <= Number(restriction.max);
       return passesMin && passesMax;
     }
   }
@@ -97,7 +98,7 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   function calcScore(sums: ArmorPiece): number {
     return SearchCriteriaNames
       .map(name => sums[name] * (
-        searchValues[name].weight ?? 0
+        Number(searchValues[name].weight) ?? 0
       ))
       .reduce((a, b) => a + b);
   }

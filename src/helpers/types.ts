@@ -20,8 +20,8 @@ export type ArmorPiece = {
 }
 
 export type SearchValues = {
-  maxWeight: number | null,
-  minScore: number | null,
+  maxWeight: string | null,
+  minScore: string | null,
   armor: SearchValue,
   bleed: SearchValue,
   burn: SearchValue,
@@ -40,9 +40,9 @@ export const SearchCriteriaNames: SearchCriteriaName[] = [
 ];
 
 export type SearchValue = {
-  weight: number | null,
-  min: number | null,
-  max: number | null,
+  weight: string | null,
+  min: string | null,
+  max: string | null,
 }
 
 export type NamedArmorPiece = ArmorPiece & {
