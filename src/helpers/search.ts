@@ -12,6 +12,16 @@ import {
 
 const MAX_RESULTS = 100;
 const MAX_SIZE = 10000;
+const EMPTY_PIECE: NamedArmorPiece = {
+  name: "EMPTY",
+  weight: 0,
+  armor: 0,
+  bleed: 0,
+  burn: 0,
+  overload: 0,
+  corrode: 0,
+  blight: 0,
+};
 
 export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValues) {
   const activeSets = setBooleans
@@ -57,7 +67,7 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   return searchResults;
 
   function getSlotSet(slot: ArmorSlot): NamedArmorPiece[] {
-    const slotSet: NamedArmorPiece[] = [];
+    const slotSet: NamedArmorPiece[] = [EMPTY_PIECE];
     activeSets.forEach(set => {
       const piece = set[slot];
       if (piece) {

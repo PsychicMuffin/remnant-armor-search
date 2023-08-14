@@ -15,8 +15,8 @@ export type ArmorPiece = {
   bleed: number,
   burn: number,
   overload: number,
-  blight: number,
   corrode: number,
+  blight: number,
 }
 
 export type SearchValues = {
