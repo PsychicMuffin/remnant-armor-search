@@ -2,21 +2,18 @@ import React, {FormEvent, useEffect, useState} from "react";
 import {Button, Col, Form, Row, Tab, Tabs} from "react-bootstrap";
 import {BaseArmorSets} from "../helpers/data";
 import {searchArmorSets} from "../helpers/search";
-import {getState, SearchResult, SearchValues, StateObject} from "../helpers/types";
+import {getState, SearchResult, SearchValues, SlotFilter, StateObject} from "../helpers/types";
 import ArmorFilter from "./ArmorFilter";
 import SearchInput from "./SearchInput";
 
 export default function SearchForm(props: {
   setSearchResults: React.Dispatch<React.SetStateAction<SearchResult[]>>
 }) {
-  const initialArmorSets = BaseArmorSets.map(_ => true);
-  const storedArmorSetsString = localStorage.getItem("armorSets");
-  if (storedArmorSetsString) {
-    const storedArmorSets: boolean[] = JSON.parse(storedArmorSetsString);
-    storedArmorSets.forEach((enabled, i) => initialArmorSets[i] = enabled);
-  }
+  const initialArmorSets = getInitialArmorSets();
+  const initialArmorSlots = getInitialArmorSlots();
 
   const [armorSets, setArmorSets] = useState<boolean[]>(initialArmorSets);
+  const [armorSlots, setArmorSlots] = useState<SlotFilter>(initialArmorSlots);
   const [searched, setSearched] = useState(false);
   const [searchValues, setSearchValues] = useState<SearchValues>({
     maxWeight: null,
@@ -31,12 +28,12 @@ export default function SearchForm(props: {
 
   useEffect(() => {
     setSearched(false);
-  }, [searchValues, armorSets]);
+  }, [searchValues, armorSets, armorSlots]);
 
   function search(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSearched(true);
-    props.setSearchResults(searchArmorSets(armorSets, searchValues));
+    props.setSearchResults(searchArmorSets(armorSets, armorSlots, searchValues));
   }
 
   const searchValuesState = getState(searchValues, setSearchValues);
@@ -59,7 +56,10 @@ export default function SearchForm(props: {
           </Row>
         </Tab>
         <Tab eventKey="filter" title="Armor Filter">
-          <ArmorFilter state={getState(armorSets, setArmorSets)}/>
+          <ArmorFilter
+            setsState={getState(armorSets, setArmorSets)}
+            slotsState={getState(armorSlots, setArmorSlots)}
+          />
         </Tab>
       </Tabs>
     </Form>
@@ -94,4 +94,23 @@ function NotableValue(props: {
       </Col>
     </Row>
   );
+}
+
+function getInitialArmorSets() {
+  const initialArmorSets = BaseArmorSets.map(_ => true);
+  const storedArmorSetsString = localStorage.getItem("armorSets");
+  if (storedArmorSetsString) {
+    const storedArmorSets: boolean[] = JSON.parse(storedArmorSetsString);
+    storedArmorSets.forEach((enabled, i) => initialArmorSets[i] = enabled);
+  }
+  return initialArmorSets;
+}
+
+function getInitialArmorSlots() {
+  let initialArmorSlots = {helm: true, chest: true, boot: true, glove: true};
+  const storedArmorSlotsString = localStorage.getItem("armorSlots");
+  if (storedArmorSlotsString) {
+    initialArmorSlots = JSON.parse(storedArmorSlotsString);
+  }
+  return initialArmorSlots;
 }

@@ -54,7 +54,14 @@ export type SearchResult = ArmorPiece & {
   chest: NamedArmorPiece,
   glove: NamedArmorPiece,
   helm: NamedArmorPiece,
-  boot: NamedArmorPiece
+  boot: NamedArmorPiece,
+}
+
+export type SlotFilter = {
+  helm: boolean,
+  chest: boolean,
+  boot: boolean,
+  glove: boolean,
 }
 
 export type StateObject<T> = {

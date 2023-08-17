@@ -8,12 +8,13 @@ import {
   SearchCriteriaNames,
   SearchResult,
   SearchValues,
+  SlotFilter,
 } from "./types";
 
 const MAX_RESULTS = 100;
 const MAX_SIZE = 10000;
 const EMPTY_PIECE: NamedArmorPiece = {
-  name: "EMPTY",
+  name: "",
   weight: 0,
   armor: 0,
   bleed: 0,
@@ -23,35 +24,39 @@ const EMPTY_PIECE: NamedArmorPiece = {
   blight: 0,
 };
 
-export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValues) {
+export function searchArmorSets(
+  setBooleans: boolean[],
+  armorSlots: SlotFilter,
+  searchValues: SearchValues,
+) {
   const activeSets = setBooleans
     .map((active, i) => active ? BaseArmorSets[i] : null)
     .filter(isPresent);
 
-  const helms = getSlotSet("helm");
-  const chests = getSlotSet("chest");
-  const gloves = getSlotSet("glove");
-  const boots = getSlotSet("boot");
-  if (helms.length < 1 || chests.length < 1 || gloves.length < 1 || boots.length < 1) {
+  const helms = getSlotSet("helm", armorSlots.helm);
+  const chests = getSlotSet("chest", armorSlots.chest);
+  const boots = getSlotSet("boot", armorSlots.boot);
+  const gloves = getSlotSet("glove", armorSlots.glove);
+  if (helms.length < 1 || chests.length < 1 || boots.length < 1 || gloves.length < 1) {
     Error("Please enable at least one item of every slot.");
   }
 
   const searchResults: SearchResult[] = [];
-  chests.forEach(chest => {
-    gloves.forEach(glove => {
-      helms.forEach(helm => {
-        boots.forEach(boot => {
-          const sums = getArmorSum([chest, glove, helm, boot]);
+  helms.forEach(helm => {
+    chests.forEach(chest => {
+      boots.forEach(boot => {
+        gloves.forEach(glove => {
+          const sums = getArmorSum([helm, chest, boot, glove]);
           if (passesChecks(sums)) {
             const score = calcScore(sums);
             if (searchValues.minScore == null || score >= Number(searchValues.minScore)) {
               searchResults.push({
                 ...sums,
                 score: calcScore(sums),
-                chest,
-                glove,
                 helm,
+                chest,
                 boot,
+                glove,
               });
               if (searchResults.length >= MAX_SIZE) {
                 truncateResults(searchResults);
@@ -66,14 +71,16 @@ export function searchArmorSets(setBooleans: boolean[], searchValues: SearchValu
   truncateResults(searchResults);
   return searchResults;
 
-  function getSlotSet(slot: ArmorSlot): NamedArmorPiece[] {
+  function getSlotSet(slot: ArmorSlot, enabled: boolean): NamedArmorPiece[] {
     const slotSet: NamedArmorPiece[] = [EMPTY_PIECE];
-    activeSets.forEach(set => {
-      const piece = set[slot];
-      if (piece) {
-        slotSet.push({name: set.name, ...piece});
-      }
-    });
+    if (enabled) {
+      activeSets.forEach(set => {
+        const piece = set[slot];
+        if (piece) {
+          slotSet.push({name: set.name, ...piece});
+        }
+      });
+    }
     return slotSet;
   }
 
