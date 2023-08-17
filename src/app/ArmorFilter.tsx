@@ -1,17 +1,25 @@
 import React, {useEffect} from "react";
 import {Form} from "react-bootstrap";
 import {BaseArmorSets} from "../helpers/data";
-import {StateObject} from "../helpers/types";
+import {SlotFilter, StateObject} from "../helpers/types";
 
 export default function ArmorFilter(props: {
-  state: StateObject<boolean[]>
+  setsState: StateObject<boolean[]>
+  slotsState: StateObject<SlotFilter>
 }) {
+  const {value: sets, setter: setSets} = props.setsState;
+  const {value: slots, setter: setSlots} = props.slotsState;
+
   useEffect(() => {
-    localStorage.setItem("armorSets", JSON.stringify(props.state.value));
-  }, [props.state.value]);
+    localStorage.setItem("armorSets", JSON.stringify(sets));
+  }, [sets]);
+
+  useEffect(() => {
+    localStorage.setItem("armorSlots", JSON.stringify(slots));
+  }, [slots]);
 
   function updateArmorSet(index: number, include: boolean) {
-    props.state.setter(prevState => prevState.map((value, i) => {
+    setSets(prevState => prevState.map((value, i) => {
       if (i === index) {
         return include;
       } else {
@@ -20,17 +28,56 @@ export default function ArmorFilter(props: {
     }));
   }
 
+  function updateArmorSlot(slot: keyof SlotFilter, include: boolean) {
+    setSlots(prevState => (
+      {
+        ...prevState,
+        [slot]: include,
+      }
+    ));
+  }
+
   return (
-    <div style={{gridTemplateColumns: "1fr 1fr", display: "grid"}}>
-      {BaseArmorSets.map((armorSet, i) =>
+    <>
+      <h5 className="text-center"><u>Sets to include</u></h5>
+      <div style={{gridTemplateColumns: "1fr 1fr", display: "grid"}}>
+        {BaseArmorSets.map((armorSet, i) =>
+          <Form.Check
+            key={i}
+            className="mx-1"
+            label={armorSet.name}
+            checked={sets[i]}
+            onChange={(e) => updateArmorSet(i, e.target.checked)}
+          />,
+        )}
+      </div>
+      <h5 className="text-center"><u>Slots to include</u></h5>
+      <div style={{gridTemplateColumns: "1fr 1fr 1fr 1fr", display: "grid"}}>
         <Form.Check
-          key={i}
           className="mx-1"
-          label={armorSet.name}
-          checked={props.state.value[i]}
-          onChange={(e) => updateArmorSet(i, e.target.checked)}
-        />,
-      )}
-    </div>
+          label="Helmet"
+          checked={slots["helm"]}
+          onChange={(e) => updateArmorSlot("helm", e.target.checked)}
+        />
+        <Form.Check
+          className="mx-1"
+          label="Chest"
+          checked={slots["chest"]}
+          onChange={(e) => updateArmorSlot("chest", e.target.checked)}
+        />
+        <Form.Check
+          className="mx-1"
+          label="Boots"
+          checked={slots["boot"]}
+          onChange={(e) => updateArmorSlot("boot", e.target.checked)}
+        />
+        <Form.Check
+          className="mx-1"
+          label="Gloves"
+          checked={slots["glove"]}
+          onChange={(e) => updateArmorSlot("glove", e.target.checked)}
+        />
+      </div>
+    </>
   );
 }
