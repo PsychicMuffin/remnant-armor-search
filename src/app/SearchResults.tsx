@@ -20,8 +20,8 @@ export default function SearchResults(props: {
             </Card.Body>
             <Card.Footer className="py-1 px-0">
               <Row xs="auto" className="justify-content-center mx-0 pb-1">
-                <HighlightedResult label="Armor" result={result.armor}/>
-                <HighlightedResult label="Weight" result={result.weight}/>
+                <HighlightedResult label="Armor" result={result.armor.toFixed(1)}/>
+                <HighlightedResult label="Weight" result={result.weight.toFixed(1)}/>
               </Row>
               <Row xs="auto" className="justify-content-center mx-1">
                 <ResistResult src="/img/bleed.png" result={result.bleed}/>
@@ -49,7 +49,7 @@ function SlotResult(props: {
 
 function HighlightedResult(props: {
   label: string,
-  result: number
+  result: string
 }) {
   return (
     <Card className="p-0 mx-1">
