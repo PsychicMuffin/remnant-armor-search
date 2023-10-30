@@ -2,6 +2,11 @@ import React, {useEffect, useState} from "react";
 import {Button, Container, Navbar, Offcanvas} from "react-bootstrap";
 import Switch from "react-switch";
 
+enum Theme {
+  Light = "light",
+  Dark  = "dark"
+}
+
 export default function Header() {
   const [theme, setTheme] = useState(Theme.Dark);
   const [switchBgColor, setSwitchBgColor] = useState("#fff");
@@ -76,11 +81,6 @@ export default function Header() {
       </Container>
     </Navbar>
   );
-}
-
-enum Theme {
-  Light = "light",
-  Dark  = "dark"
 }
 
 function getTheme(isDark: boolean) {
