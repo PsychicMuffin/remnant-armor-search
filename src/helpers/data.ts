@@ -20,12 +20,12 @@ export const BaseArmorSets: ArmorSet[] = [
     boot: {armor: 35, weight: 16.2, bleed: 1, burn: 4, overload: 0, blight: 0, corrode: 2},
     glove: {armor: 17.6, weight: 8.1, bleed: 1, burn: 2, overload: 0, blight: 0, corrode: 1},
   }, {
-    name: "Crimson Guard",
+    name: "Crown of the Red Prince",
     helm: {armor: 6, weight: 6, bleed: -6, burn: 25, overload: -6, blight: 13, corrode: -6},
   }, {
-    name: "Crown of the Red Prince",
+    name: "Crimson Guard",
     helm: {armor: 15.6, weight: 6.7, bleed: 2, burn: 2, overload: 0, blight: 2, corrode: 0},
-	chest: {armor: 60.8, weight: 26.8, bleed: 4, burn: 3, overload: 0, blight: 2, corrode: 0},
+    chest: {armor: 60.8, weight: 26.8, bleed: 4, burn: 3, overload: 0, blight: 2, corrode: 0},
     boot: {armor: 30.4, weight: 13.4, bleed: 2, burn: 3, overload: 0, blight: 2, corrode: 0},
     glove: {armor: 15.2, weight: 6.7, bleed: 1, burn: 1, overload: 0, blight: 1, corrode: 0},
   }, {
