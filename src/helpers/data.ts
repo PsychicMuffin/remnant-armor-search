@@ -20,8 +20,14 @@ export const BaseArmorSets: ArmorSet[] = [
     boot: {armor: 35, weight: 16.2, bleed: 1, burn: 4, overload: 0, blight: 0, corrode: 2},
     glove: {armor: 17.6, weight: 8.1, bleed: 1, burn: 2, overload: 0, blight: 0, corrode: 1},
   }, {
-    name: "Crown of the Red Prince",
+    name: "Crimson Guard",
     helm: {armor: 6, weight: 6, bleed: -6, burn: 25, overload: -6, blight: 13, corrode: -6},
+  }, {
+    name: "Crown of the Red Prince",
+    helm: {armor: 15.6, weight: 6.7, bleed: 2, burn: 2, overload: 0, blight: 2, corrode: 0},
+	chest: {armor: 60.8, weight: 26.8, bleed: 4, burn: 3, overload: 0, blight: 2, corrode: 0},
+    boot: {armor: 30.4, weight: 13.4, bleed: 2, burn: 3, overload: 0, blight: 2, corrode: 0},
+    glove: {armor: 15.2, weight: 6.7, bleed: 1, burn: 1, overload: 0, blight: 1, corrode: 0},
   }, {
     name: "Cultist",
     helm: {armor: 11.1, weight: 4.6, bleed: 1, burn: 1, overload: 1, blight: 1, corrode: 1},
@@ -69,7 +75,7 @@ export const BaseArmorSets: ArmorSet[] = [
     helm: {armor: 12.9, weight: 5.4, bleed: 0, burn: 2, overload: 3, blight: 0, corrode: 0},
     chest: {armor: 51, weight: 21.6, bleed: 0, burn: 4, overload: 6, blight: 0, corrode: 0},
     boot: {armor: 25.5, weight: 10.8, bleed: 0, burn: 3, overload: 4, blight: 0, corrode: 0},
-    glove: {armor: 25.8, weight: 10.8, bleed: 0, burn: 3, overload: 4, blight: 0, corrode: 0},
+    glove: {armor: 12.9, weight: 5.4, bleed: 0, burn: 1, overload: 2, blight: 0, corrode: 0},
   }, {
     name: "Leto Mark I",
     helm: {armor: 22.6, weight: 11.9, bleed: 3, burn: 4, overload: 2, blight: 2, corrode: 4},
@@ -141,5 +147,11 @@ export const BaseArmorSets: ArmorSet[] = [
     chest: {armor: 63.6, weight: 28.4, bleed: 0, burn: 3, overload: 4, blight: 0, corrode: 4},
     boot: {armor: 31.8, weight: 14.2, bleed: 0, burn: 2, overload: 2, blight: 0, corrode: 3},
     glove: {armor: 15.9, weight: 7.1, bleed: 0, burn: 1, overload: 1, blight: 0, corrode: 1},
+  }, {
+    name: "Zealot's",
+    helm: {armor: 11.3, weight: 4.7, bleed: 0, burn: 0, overload: 1, blight: 1, corrode: 0},
+    chest: {armor: 45.2, weight: 18.8, bleed: 3, burn: 2, overload: 3, blight: 4, corrode: 0},
+    boot: {armor: 22.6, weight: 9,4, bleed: 2, burn: 1, overload: 2, blight: 3, corrode: 0},
+    glove: {armor: 11.3, weight: 4.7, bleed: 0, burn: 1, overload: 1, blight: 1, corrode: 0},
   },
 ];
