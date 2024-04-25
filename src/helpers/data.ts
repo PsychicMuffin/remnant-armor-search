@@ -14,6 +14,15 @@ export const BaseArmorSets: ArmorSet[] = [
     boot: {armor: 13.6, weight: 5.4, bleed: 2, burn: 0, overload: 0, blight: 1, corrode: 2},
     glove: {armor: 6.8, weight: 2.7, bleed: 2, burn: 0, overload: 0, blight: 1, corrode: 2},
   }, {
+    name: "Battle",
+    helm: {armor: 13.1, weight: 5.3, bleed: 5, burn: 2, overload: 0, blight: 2, corrode: 2},
+    chest: {armor: 31.6, weight: 12.8, bleed: 2, burn: 3, overload: 0, blight: 2, corrode: 2},
+    boot: {armor: 15.8, weight: 6.4, bleed: 1, burn: 1, overload: 0, blight: 2, corrode: 1},
+    glove: {armor: 7.9, weight: 3.2, bleed: 1, burn: 1, overload: 0, blight: 1, corrode: 1},
+  }, {
+    name: "Bloodless Crown",
+    helm: {armor: 13.1, weight: 2.7, bleed: 15, burn: -3, overload: -3, blight: -3, corrode: -3},
+  }, {
     name: "Bruiser",
     helm: {armor: 17.6, weight: 8.1, bleed: 1, burn: 2, overload: 0, blight: 0, corrode: 1},
     chest: {armor: 70.2, weight: 32.4, bleed: 2, burn: 6, overload: 0, blight: 0, corrode: 2},
@@ -35,11 +44,20 @@ export const BaseArmorSets: ArmorSet[] = [
     boot: {armor: 22.2, weight: 9.2, bleed: 1, burn: 1, overload: 1, blight: 2, corrode: 2},
     glove: {armor: 11.1, weight: 4.6, bleed: 0, burn: 1, overload: 1, blight: 1, corrode: 1},
   }, {
+    name: "Dandy Topper",
+    helm: {armor: 12.8, weight: 5.3, bleed: 0, burn: 0, overload: 0, blight: 5, corrode: 0},
+  }, {
     name: "Dendroid",
     helm: {armor: 7.7, weight: 3.1, bleed: 2, burn: 0, overload: 0, blight: 0, corrode: 2},
     chest: {armor: 30.8, weight: 12.4, bleed: 4, burn: 0, overload: 0, blight: 2, corrode: 5},
     boot: {armor: 15.4, weight: 6.2, bleed: 3, burn: 0, overload: 0, blight: 2, corrode: 2},
     glove: {armor: 7.7, weight: 3.1, bleed: 1, burn: 0, overload: 0, blight: 1, corrode: 1},
+  }, {
+    name: "Disciple",
+    helm: {armor: 16, weight: 7.2, bleed: 0, burn: 2, overload: 2, blight: 0, corrode: 1},
+    chest: {armor: 64, weight: 28.8, bleed: 0, burn: 4, overload: 5, blight: 0, corrode: 2},
+    boot: {armor: 32, weight: 14.4, bleed: 0, burn: 2, overload: 3, blight: 0, corrode: 1},
+    glove: {armor: 16, weight: 7.2, bleed: 0, burn: 1, overload: 2, blight: 0, corrode: 0},
   }, {
     name: "Elder",
     helm: {armor: 7.5, weight: 3, bleed: 0, burn: 3, overload: 0, blight: 2, corrode: 0},
@@ -92,6 +110,9 @@ export const BaseArmorSets: ArmorSet[] = [
     name: "Lodestone Crown",
     helm: {armor: 6.5, weight: 2.6, bleed: -2, burn: 0, overload: -1, blight: 5, corrode: 0},
   }, {
+    name: "Mudtooth's Hat",
+    helm: {armor: 10.6, weight: 4.4, bleed: 1, burn: 1, overload: 1, blight: 2, corrode: 1},
+  }, {
     name: "Navigator's Helm",
     helm: {armor: 16, weight: 7.6, bleed: -1, burn: -1, overload: 2, blight: -1, corrode: 3},
   }, {
@@ -141,6 +162,9 @@ export const BaseArmorSets: ArmorSet[] = [
     chest: {armor: 40, weight: 16.4, bleed: 3, burn: 0, overload: 4, blight: 1, corrode: 3},
     boot: {armor: 20, weight: 8.2, bleed: 1, burn: 0, overload: 1, blight: 1, corrode: 2},
     glove: {armor: 10.1, weight: 4.1, bleed: 2, burn: 0, overload: 3, blight: 1, corrode: 1},
+  }, {
+    name: "True Crimson Crown",
+    helm: {armor: 16.6, weight: 10, bleed: -6, burn: 35, overload: -6, blight: -6, corrode: -6},
   }, {
     name: "Void",
     helm: {armor: 15.9, weight: 7.1, bleed: 0, burn: 1, overload: 2, blight: 0, corrode: 1},
