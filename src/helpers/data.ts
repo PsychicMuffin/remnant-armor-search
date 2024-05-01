@@ -173,9 +173,9 @@ export const BaseArmorSets: ArmorSet[] = [
     glove: {armor: 15.9, weight: 7.1, bleed: 0, burn: 1, overload: 1, blight: 0, corrode: 1},
   }, {
     name: "Zealot's",
-    helm: {armor: 11.3, weight: 4.7, bleed: 0, burn: 0, overload: 1, blight: 1, corrode: 0},
-    chest: {armor: 45.2, weight: 18.8, bleed: 3, burn: 2, overload: 3, blight: 4, corrode: 0},
-    boot: {armor: 22.6, weight: 9.4, bleed: 2, burn: 1, overload: 2, blight: 3, corrode: 0},
-    glove: {armor: 11.3, weight: 4.7, bleed: 0, burn: 1, overload: 1, blight: 1, corrode: 0},
+    helm: {armor: 11.3, weight: 4.7, bleed: 1, burn: 0, overload: 1, blight: 2, corrode: 2},
+    chest: {armor: 45.2, weight: 18.8, bleed: 2, burn: 0, overload: 1, blight: 3, corrode: 3},
+    boot: {armor: 22.6, weight: 9.4, bleed: 2, burn: 0, overload: 1, blight: 2, corrode: 2},
+    glove: {armor: 11.3, weight: 4.7, bleed: 1, burn: 0, overload: 0, blight: 1, corrode: 1},
   },
 ];
