@@ -21,7 +21,7 @@ export const BaseArmorSets: ArmorSet[] = [
     glove: {armor: 7.9, weight: 3.2, bleed: 1, burn: 1, overload: 0, blight: 1, corrode: 1},
   }, {
     name: "Bloodless Crown",
-    helm: {armor: 13.1, weight: 2.7, bleed: 15, burn: -3, overload: -3, blight: -3, corrode: -3},
+    helm: {armor: 6.6, weight: 2.7, bleed: 15, burn: -3, overload: -3, blight: -3, corrode: -3},
   }, {
     name: "Bruiser",
     helm: {armor: 17.6, weight: 8.1, bleed: 1, burn: 2, overload: 0, blight: 0, corrode: 1},
